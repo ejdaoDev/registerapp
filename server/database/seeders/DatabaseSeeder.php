@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder {
 
         $this->call(RolesSeeder::class);
 
-        if (User::select('users.id')->where("email", "admin@hotmail.com")->count() == 0) {
+        if (User::select('users.id')->where("email", "superuser@hotmail.com")->count() == 0) {
             $user['name'] = "superuser";
             $user['email'] = "superuser@hotmail.com";
             $user['password'] = bcrypt("123");

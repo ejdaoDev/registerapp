@@ -43,6 +43,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                  ->group(function(){
                     require base_path('routes/v1/auth.php');
+                    require base_path('routes/v1/users.php');
                 });
 
             Route::middleware('web')

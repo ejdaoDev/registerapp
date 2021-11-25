@@ -12,53 +12,40 @@ class LoginController extends Controller {
     public function login(Request $request) {
         $credentials = $this->validator()->validate($request);
         if ($credentials == 401) {
-            return response()->json([
-                        'status' => "401",
+            return response()->json(['status' => "401",
                         'data' => ['mesage' => "invalid credentials"]]);
         }
         if ($credentials == 403) {
-            return response()->json([
-                        'status' => "403",
+            return response()->json(['status' => "403",
                         'data' => ['mesage' => "user inhabilited"]]);
         }
         if (!$token = auth($this->guard)->attempt($credentials)) {
             return response()->json(['status' => "401",
                         'data' => ['mesage' => "invalid credentials"]]);
         }
-        return response()->json(['data' => [
-                        'status' => "200",
-                        'type' => "200",
-                        'token' => $token,
+        return response()->json(['status' => "200", 'data' => ['token' => $token,
                         'user' => User::select('users.*', 'roles.name as role')
-                        ->join('roles', 'roles.id','users.role_id')
-                        ->where("users.id", auth($this->guard)->id())->get()
-                    ]
-                        ]
-        );
+                                ->join('roles', 'roles.id', 'users.role_id')
+                                ->where("users.id", auth($this->guard)->id())->get()
+        ]]);
     }
-
-    //$this->guard)->id()
 
     public function logout() {
         auth($this->guard)->logout();
         return response()->json([
+                    'status' => "200",
                     'data' => [
-                        'status' => "200",
-                        'type' => "success",
-                        'detail_en' => "Successfully loged out",
-                        'detail_es' => "Deslogueado correctamente"
-                    ]
-        ]);
+                        'message' => "successfully logout"
+        ]]);
     }
 
     public function refresh() {
         $token = $this->RespondWithToken(auth($this->guard)->refresh());
-        return response()->json(['data' => ['status' => "200",
-                        'type' => "200",
+        return response()->json([
+                    'status' => "200",
+                    'data' => [
                         'token' => $token->original['access_token'],
-                    ]
-                        ]
-        );
+        ]]);
     }
 
     protected function RespondWithToken($token) {
