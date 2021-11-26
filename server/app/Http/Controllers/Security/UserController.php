@@ -7,29 +7,24 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Security\Role;
 use App\Http\Repositories\Security\UserRepository;
+use App\Http\Interactors\Security\UserInteractor;
 
 class UserController extends Controller {
 
-    public function get() {
+    public function index() {
         if (auth($this->guard)->id()) {
-            $users = User::select('users.*', 'roles.name as role')
-                    ->join('roles', 'roles.id', 'users.role_id')
-                    ->where('users.created_by', auth($this->guard)->id())
-                    ->where('users.id', '!=', auth($this->guard)->id())
-                    ->get();
+            $users = $this->interactor()->getUsersWithAuth(auth($this->guard)->id());
             return response()->json([
                         'status' => "200",
                         'data' => ['users' => $users]]);
         }
-        $users = User::select('users.*', 'roles.name as role')
-                    ->join('roles', 'roles.id', 'users.role_id')->get();
-            return response()->json([
-                        'status' => "200",
-                        'data' => ['users' => $users]]);
-        
+        $users = $this->interactor()->getUsersWithoutAuth();
+        return response()->json([
+                    'status' => "200",
+                    'data' => ['users' => $users]]);
     }
 
-    public function create(Request $request) {
+    public function store(Request $request) {
         if (User::where("email", $request->email)->count()) {
             return response()->json([
                         'status' => "204",
@@ -73,7 +68,7 @@ class UserController extends Controller {
                     'data' => ['message' => "the user could not be updated, maybe the email already exist"]]);
     }
 
-    public function delete($id) {
+    public function destroy($id) {
         //\Log::debug('eliminando usuario');
         User::findOrFail($id)->delete();
         return response()->json([
@@ -81,9 +76,35 @@ class UserController extends Controller {
                     'data' => ['message' => "user successfully deleted"]]);
     }
 
+    public function getDeletedUsers() {
+        $users = User::onlyTrashed()->where('created_by', auth($this->guard)->id())->get();
+        return response()->json([
+                    'status' => "200",
+                    'data' => ['users' => $users]]);
+    }
+
+    public function RestoreUser($id) {
+        User::onlyTrashed()->findOrFail($id)->restore();
+        return response()->json([
+                    'status' => "200",
+                    'data' => ['message' => "user successfully restored"]]);
+    }
+
+    public function RestoreAllUsers() {
+        User::query()->where('created_by', auth($this->guard)->id())->restore();
+        return response()->json([
+                    'status' => "200",
+                    'data' => ['message' => "All users was successfully restored"]]);
+    }
+
     protected function repository() {
         $repository = new UserRepository();
         return $repository;
+    }
+
+    protected function interactor() {
+        $interactor = new UserInteractor();
+        return $interactor;
     }
 
 }

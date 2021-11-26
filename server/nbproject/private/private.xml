@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/E:/xampp/htdocs/registerapp/server/app/Http/Controllers/Controller.php</file>
+            <file>file:/E:/xampp/htdocs/registerapp/server/app/Http/Repositories/Security/UserRepository.php</file>
+            <file>file:/E:/xampp/htdocs/registerapp/server/app/Http/Controllers/Auth/LoginController.php</file>
+            <file>file:/E:/xampp/htdocs/registerapp/server/routes/v1/users.php</file>
+            <file>file:/E:/xampp/htdocs/registerapp/server/app/Http/Controllers/Security/UserController.php</file>
+            <file>file:/E:/xampp/htdocs/registerapp/server/storage/logs/laravel.log</file>
+        </group>
     </open-files>
 </project-private>
