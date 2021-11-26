@@ -19,7 +19,7 @@ class Controller extends BaseController {
         header('Access-Controll-Allow-Origin', "*");
         header('Access-Controll-Allow-Methods', "PUT,POST,DELETE,GET,OPTIONS");
         header('Access-Controll-Allow-Headers', "Accept,Authorization,Content-Type");
-        $this->middleware('auth')->except(["login"]);
+        $this->middleware('auth')->except(["login",'get']);
     }
 
 }

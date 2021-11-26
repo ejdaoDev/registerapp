@@ -12,6 +12,7 @@ class LoginController extends Controller {
     public function login(Request $request) {
         $credentials = $this->validator()->validate($request);
         if ($credentials == 401) {
+            //\Log::debug('credenciales invalidas');
             return response()->json(['status' => "401",
                         'data' => ['mesage' => "invalid credentials"]]);
         }
@@ -20,17 +21,20 @@ class LoginController extends Controller {
                         'data' => ['mesage' => "user inhabilited"]]);
         }
         if (!$token = auth($this->guard)->attempt($credentials)) {
+            //\Log::debug('credenciales invalidas');
             return response()->json(['status' => "401",
                         'data' => ['mesage' => "invalid credentials"]]);
         }
+        //\Log::debug('logueado correctamente');
         return response()->json(['status' => "200", 'data' => ['token' => $token,
                         'user' => User::select('users.*', 'roles.name as role')
                                 ->join('roles', 'roles.id', 'users.role_id')
-                                ->where("users.id", auth($this->guard)->id())->get()
+                                ->where("users.id", auth($this->guard)->id())->first()
         ]]);
     }
 
     public function logout() {
+        \Log::debug('deslogueado correctamente');
         auth($this->guard)->logout();
         return response()->json([
                     'status' => "200",

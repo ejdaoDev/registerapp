@@ -11,14 +11,22 @@ use App\Http\Repositories\Security\UserRepository;
 class UserController extends Controller {
 
     public function get() {
+        if (auth($this->guard)->id()) {
+            $users = User::select('users.*', 'roles.name as role')
+                    ->join('roles', 'roles.id', 'users.role_id')
+                    ->where('users.created_by', auth($this->guard)->id())
+                    ->where('users.id', '!=', auth($this->guard)->id())
+                    ->get();
+            return response()->json([
+                        'status' => "200",
+                        'data' => ['users' => $users]]);
+        }
         $users = User::select('users.*', 'roles.name as role')
-                ->join('roles', 'roles.id', 'users.role_id')
-                ->where('users.created_by', auth($this->guard)->id())
-                ->where('users.id', '!=', auth($this->guard)->id())
-                ->get();
-        return response()->json([
-                    'status' => "200",
-                    'data' => ['user' => $users]]);
+                    ->join('roles', 'roles.id', 'users.role_id')->get();
+            return response()->json([
+                        'status' => "200",
+                        'data' => ['users' => $users]]);
+        
     }
 
     public function create(Request $request) {
@@ -66,6 +74,7 @@ class UserController extends Controller {
     }
 
     public function delete($id) {
+        //\Log::debug('eliminando usuario');
         User::findOrFail($id)->delete();
         return response()->json([
                     'status' => "200",

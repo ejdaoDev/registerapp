@@ -1,6 +1,9 @@
 <template>
   <main>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="box-shadow: 0px 4px 4px gray;">
+    <nav
+      class="navbar navbar-expand navbar-dark bg-primary"
+      style="box-shadow: 0px 4px 4px gray"
+    >
       <div class="container-fluid">
         <router-link class="navbar-brand" to="/">
           <img
@@ -34,7 +37,21 @@
             </li>
           </ul>
           <div class="d-flex">
-            <button class="btn btn-success" type="submit">Login</button>
+            <router-link
+              to="/login"
+              class="btn btn-success"
+              v-if="!auth"
+              type="button"
+              >Login</router-link
+            >
+            <button
+              @click="Logout()"
+              class="btn btn-danger"
+              v-if="auth"
+              type="button"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>
@@ -46,5 +63,43 @@
 </template>
  
 <script>
-export default {};
+import * as api from "./api";
+import Swal from "sweetalert2";
+export default {
+  data() {
+    return {
+      auth: false,
+    };
+  },
+  mounted() {
+    if (localStorage.getItem("auth.token") != null) {
+      this.auth = true;
+    }
+  },
+  methods: {
+    Logout() {
+      Swal.fire({
+        title: "Seguro quieres cerrar sesión?",
+        showDenyButton: true,
+        showCancelButton: true,
+        showConfirmButton: false,
+        denyButtonText: "Seguro",
+        cancelButtonText: `Cancelar`,
+      }).then((result) => {
+        if (result.isDenied) {
+          this.axios
+            .get(api.url + "logout", api.config)
+            .then(() => {
+              localStorage.clear();
+              window.location.reload();
+            })
+            .catch(() => {
+              localStorage.clear();
+              window.location.reload();
+            });
+        }
+      });
+    },
+  },
+};
 </script>
