@@ -105,7 +105,7 @@ class UserController extends Controller {
                         ->join('roles', 'roles.id', 'users.role_id')
                         ->where('users.created_by', auth($this->guard)->id())
                         ->where('users.id', '!=', auth($this->guard)->id())
-                        ->onlyTrashed()->get();
+                        ->onlyTrashed()->paginate(10);
         return response()->json([
                     'status' => "200",
                     'data' => ['users' => $users]]);

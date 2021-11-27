@@ -132,6 +132,70 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -140,7 +204,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       auth: false,
       removed: false,
-      users: []
+      users: [],
+      pagination: {
+        prev_page_url: null,
+        first_page_url: null,
+        next_page_url: null,
+        last_page_url: null,
+        current_page: null,
+        last_page: null
+      }
     };
   },
   mounted: function mounted() {
@@ -151,7 +223,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
-    ShowUsers: function ShowUsers() {
+    getUsers: function getUsers(url) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -160,9 +232,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this.axios.get(_api__WEBPACK_IMPORTED_MODULE_1__.url + "user", _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
+                return _this.axios.get(url, _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
                   var DataResponse = response.data;
-                  _this.users = DataResponse.data.users;
+                  _this.users = DataResponse.data.users.data;
+                  _this.pagination.current_page = DataResponse.data.users.current_page;
+                  _this.pagination.last_page = DataResponse.data.users.last_page;
+                  _this.pagination.next_page_url = DataResponse.data.users.next_page_url;
+                  _this.pagination.prev_page_url = DataResponse.data.users.prev_page_url;
+                  _this.pagination.last_page_url = DataResponse.data.users.last_page_url;
                 })["catch"](function () {
                   _this.users = [];
                 });
@@ -175,7 +252,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    Filter: function Filter(key) {
+    ShowUsers: function ShowUsers() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -183,30 +260,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!(key == "removed")) {
-                  _context2.next = 6;
-                  break;
-                }
-
-                _context2.next = 3;
-                return _this2.axios.get(_api__WEBPACK_IMPORTED_MODULE_1__.url + "user/get-deleted-users", _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
+                _context2.next = 2;
+                return _this2.axios.get(_api__WEBPACK_IMPORTED_MODULE_1__.url + "user", _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
                   var DataResponse = response.data;
-                  _this2.users = DataResponse.data.users;
+                  _this2.users = DataResponse.data.users.data;
+                  _this2.pagination.current_page = DataResponse.data.users.current_page;
+                  _this2.pagination.last_page = DataResponse.data.users.last_page;
+                  _this2.pagination.next_page_url = DataResponse.data.users.next_page_url;
+                  _this2.pagination.first_page_url = DataResponse.data.users.first_page_url;
+                  _this2.pagination.last_page_url = DataResponse.data.users.last_page_url;
                 })["catch"](function () {
                   _this2.users = [];
                 });
 
-              case 3:
-                _this2.removed = true;
-                _context2.next = 8;
-                break;
-
-              case 6:
-                _this2.ShowUsers();
-
-                _this2.removed = false;
-
-              case 8:
+              case 2:
               case "end":
                 return _context2.stop();
             }
@@ -214,13 +281,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    DeleteUser: function DeleteUser(id) {
+    Filter: function Filter(key) {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!(key == "removed")) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                _context3.next = 3;
+                return _this3.axios.get(_api__WEBPACK_IMPORTED_MODULE_1__.url + "user/get-deleted-users", _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
+                  var DataResponse = response.data;
+                  _this3.users = DataResponse.data.users.data;
+                  _this3.pagination.current_page = DataResponse.data.users.current_page;
+                  _this3.pagination.last_page = DataResponse.data.users.last_page;
+                  _this3.pagination.next_page_url = DataResponse.data.users.next_page_url;
+                  _this3.pagination.first_page_url = DataResponse.data.users.first_page_url;
+                  _this3.pagination.last_page_url = DataResponse.data.users.last_page_url;
+                })["catch"](function () {
+                  _this3.users = [];
+                });
+
+              case 3:
+                _this3.removed = true;
+                _context3.next = 8;
+                break;
+
+              case 6:
+                _this3.ShowUsers();
+
+                _this3.removed = false;
+
+              case 8:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    DeleteUser: function DeleteUser(id) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 if (localStorage.getItem("auth.token") != null) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
@@ -232,13 +343,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     cancelButtonText: "Cancelar"
                   }).then(function (result) {
                     if (result.isDenied) {
-                      _this3.axios["delete"](_api__WEBPACK_IMPORTED_MODULE_1__.url + "user/" + id, _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
+                      _this4.axios["delete"](_api__WEBPACK_IMPORTED_MODULE_1__.url + "user/" + id, _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
                         var DataResponse = response.data;
 
                         if (DataResponse.status == 200) {
                           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire("El usuario fue borrado correctamente!", "", "success");
 
-                          _this3.ShowUsers();
+                          _this4.ShowUsers();
                         } else {
                           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire("Su sesión ha finalizado!", "", "info");
                         }
@@ -253,21 +364,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 1:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }))();
     },
     EditUser: function EditUser(id) {
-      var _this4 = this;
+      var _this5 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                _this4.$router.push({
+                _this5.$router.push({
                   name: "edit-user",
                   params: {
                     id: id
@@ -276,19 +387,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 1:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4);
+        }, _callee5);
       }))();
     },
     RestoreUser: function RestoreUser(id) {
-      var _this5 = this;
+      var _this6 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
                 if (localStorage.getItem("auth.token") != null) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
@@ -300,13 +411,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     cancelButtonText: "Cancelar"
                   }).then(function (result) {
                     if (result.isConfirmed) {
-                      _this5.axios.get(_api__WEBPACK_IMPORTED_MODULE_1__.url + "user/restore-user/" + id, _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
+                      _this6.axios.get(_api__WEBPACK_IMPORTED_MODULE_1__.url + "user/restore-user/" + id, _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
                         var DataResponse = response.data;
 
                         if (DataResponse.status == 200) {
                           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire("El usuario fue restaurado correctamente!", "", "success");
 
-                          _this5.Filter("removed");
+                          _this6.Filter("removed");
                         } else {
                           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire("Su sesión ha finalizado!", "", "info");
                         }
@@ -321,23 +432,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 1:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5);
+        }, _callee6);
       }))();
     },
     RestoreAllUsers: function RestoreAllUsers() {
-      var _this6 = this;
+      var _this7 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
-                console.log(_this6.users.length);
+                console.log(_this7.users.length);
 
-                if (localStorage.getItem("auth.token") != null && _this6.users.length != 0) {
+                if (localStorage.getItem("auth.token") != null && _this7.users.length != 0) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
                     title: "Seguro quieres restaurar todos los usuarios?",
                     showDenyButton: false,
@@ -347,13 +458,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     cancelButtonText: "Cancelar"
                   }).then(function (result) {
                     if (result.isConfirmed) {
-                      _this6.axios.get(_api__WEBPACK_IMPORTED_MODULE_1__.url + "user/restore-all-users", _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
+                      _this7.axios.get(_api__WEBPACK_IMPORTED_MODULE_1__.url + "user/restore-all-users", _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
                         var DataResponse = response.data;
 
                         if (DataResponse.status == 200) {
                           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire("Los usuarios fueron restaurados correctamente!", "", "success");
 
-                          _this6.Filter("removed");
+                          _this7.Filter("removed");
                         } else {
                           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire("Su sesión ha finalizado!", "", "info");
                         }
@@ -368,19 +479,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
               case "end":
-                return _context6.stop();
+                return _context7.stop();
             }
           }
-        }, _callee6);
+        }, _callee7);
       }))();
     },
     HardDeleteUser: function HardDeleteUser(id) {
-      var _this7 = this;
+      var _this8 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
                 if (localStorage.getItem("auth.token") != null) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
@@ -392,13 +503,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     cancelButtonText: "Cancelar"
                   }).then(function (result) {
                     if (result.isDenied) {
-                      _this7.axios["delete"](_api__WEBPACK_IMPORTED_MODULE_1__.url + "user/force-delete/" + id, _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
+                      _this8.axios["delete"](_api__WEBPACK_IMPORTED_MODULE_1__.url + "user/force-delete/" + id, _api__WEBPACK_IMPORTED_MODULE_1__.config).then(function (response) {
                         var DataResponse = response.data;
 
                         if (DataResponse.status == 200) {
                           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire("El usuario fue borrado definitivamente!", "", "success");
 
-                          _this7.Filter("removed");
+                          _this8.Filter("removed");
                         } else {
                           sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire("Su sesión ha finalizado!", "", "info");
                         }
@@ -413,10 +524,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 1:
               case "end":
-                return _context7.stop();
+                return _context8.stop();
             }
           }
-        }, _callee7);
+        }, _callee8);
       }))();
     }
   }
@@ -441,7 +552,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.option-button {\r\n  margin-bottom: 5px;\r\n  margin-right: 3px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.option-button {\r\n    margin-bottom: 5px;\r\n    margin-right: 3px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1727,7 +1838,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n      Ver Usuarios Existentes\n    ")]
+              [_vm._v("\n            Ver Usuarios Existentes\n        ")]
             )
           : _vm._e(),
         _vm._v(" "),
@@ -1742,7 +1853,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n      Restaurar Todos\n    ")]
+              [_vm._v("\n            Restaurar Todos\n        ")]
             )
           : _vm._e(),
         _vm._v(" "),
@@ -1757,7 +1868,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n      Ver Usuarios Eliminados\n    ")]
+              [_vm._v("\n            Ver Usuarios Eliminados\n        ")]
             )
           : _vm._e(),
         _vm._v(" "),
@@ -1765,18 +1876,103 @@ var render = function() {
           _c("div", { staticClass: "card-header py-3" }, [
             !_vm.auth || (_vm.auth && !_vm.removed)
               ? _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-                  _vm._v("\n          Usuarios (Activos)\n        ")
+                  _vm._v(
+                    "\n                    Usuarios (Activos)\n                "
+                  )
                 ])
               : _vm._e(),
             _vm._v(" "),
             _vm.auth && _vm.removed
               ? _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-                  _vm._v("\n          Usuarios (Eliminados)\n        ")
+                  _vm._v(
+                    "\n                    Usuarios (Eliminados)\n                "
+                  )
                 ])
               : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
+            _c("ul", { staticClass: "pagination float-right" }, [
+              _c("li", { staticClass: "page-item" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "page-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.getUsers(_vm.pagination.first_page_url)
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-step-backward" })]
+                )
+              ]),
+              _vm._v(" "),
+              _vm.pagination.current_page == 1
+                ? _c("li", { staticClass: "page-item disabled" }, [_vm._m(0)])
+                : _c("li", { staticClass: "page-item" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "page-link",
+                        attrs: { href: "#", tabindex: "-1" },
+                        on: {
+                          click: function($event) {
+                            return _vm.getUsers(_vm.pagination.prev_page_url)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fas fa-chevron-circle-left" })]
+                    )
+                  ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "page-item disabled" }, [
+                _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+                  _vm._v(
+                    "Pag. " +
+                      _vm._s(_vm.pagination.current_page) +
+                      " de\n                            " +
+                      _vm._s(_vm.pagination.last_page)
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _vm.pagination.current_page == _vm.pagination.last_page
+                ? _c("li", { staticClass: "page-item disabled" }, [_vm._m(1)])
+                : _c("li", { staticClass: "page-item" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "page-link",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            return _vm.getUsers(_vm.pagination.next_page_url)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fas fa-chevron-circle-right" })]
+                    )
+                  ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "page-item" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "page-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.getUsers(_vm.pagination.last_page_url)
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-step-forward" })]
+                )
+              ])
+            ]),
+            _vm._v(" "),
             _c(
               "table",
               {
@@ -1784,7 +1980,7 @@ var render = function() {
                 attrs: { id: "datatable" }
               },
               [
-                _vm._m(0),
+                _vm._m(2),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -1873,6 +2069,24 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "page-link", attrs: { href: "#", tabindex: "-1" } },
+      [_c("i", { staticClass: "fas fa-chevron-circle-left" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-chevron-circle-right" })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

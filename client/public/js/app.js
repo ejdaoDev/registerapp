@@ -2145,10 +2145,10 @@ __webpack_require__.r(__webpack_exports__);
         if (result.isDenied) {
           _this.axios.get(_api__WEBPACK_IMPORTED_MODULE_0__.url + "logout", _api__WEBPACK_IMPORTED_MODULE_0__.config).then(function () {
             localStorage.clear();
-            window.location.reload();
+            window.location.href = "/users";
           })["catch"](function () {
             localStorage.clear();
-            window.location.reload();
+            window.location.href = "/users";
           });
         }
       });
@@ -2265,7 +2265,7 @@ __webpack_require__.r(__webpack_exports__);
 function Auth(to, from, next) {
   if (localStorage.getItem('auth.token') == null) {
     next({
-      name: 'home'
+      name: 'users'
     });
   }
 
@@ -2288,7 +2288,7 @@ __webpack_require__.r(__webpack_exports__);
 function RedirectIfAuthenticated(to, from, next) {
   if (localStorage.getItem('auth.token') != null) {
     next({
-      name: 'home'
+      name: 'users'
     });
   }
 
@@ -2313,10 +2313,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Home = function Home() {
-  return __webpack_require__.e(/*! import() */ "resources_js_components_Home_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Home.vue */ "./resources/js/components/Home.vue"));
-};
-
 var Users = function Users() {
   return __webpack_require__.e(/*! import() */ "resources_js_components_Users_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Users.vue */ "./resources/js/components/Users.vue"));
 };
@@ -2334,11 +2330,11 @@ var Register = function Register() {
 };
 
 var routes = [{
-  name: "home",
-  path: "/",
-  component: Home
-}, {
   name: "users",
+  path: "/users",
+  component: Users
+}, {
+  name: "**",
   path: "/users",
   component: Users
 }, {
@@ -23112,7 +23108,7 @@ var render = function() {
           [
             _c(
               "router-link",
-              { staticClass: "navbar-brand", attrs: { to: "/" } },
+              { staticClass: "navbar-brand", attrs: { to: "/users" } },
               [
                 _c("img", {
                   attrs: {
@@ -38663,7 +38659,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.3","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Home_vue":1,"resources_js_components_Users_vue":1,"resources_js_components_UsersForm_vue":1,"resources_js_components_Login_vue":1,"resources_js_components_Register_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Users_vue":1,"resources_js_components_UsersForm_vue":1,"resources_js_components_Login_vue":1,"resources_js_components_Register_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

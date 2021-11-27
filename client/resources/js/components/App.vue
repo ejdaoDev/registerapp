@@ -5,7 +5,7 @@
       style="box-shadow: 0px 4px 4px gray"
     >
       <div class="container-fluid">
-        <router-link class="navbar-brand" to="/">
+        <router-link class="navbar-brand" to="/users">
           <img
             src="https://vuejs.org/images/logo.svg"
             alt=""
@@ -91,11 +91,11 @@ export default {
             .get(api.url + "logout", api.config)
             .then(() => {
               localStorage.clear();
-              window.location.reload();
+              window.location.href="/users";
             })
             .catch(() => {
               localStorage.clear();
-              window.location.reload();
+              window.location.href="/users";
             });
         }
       });

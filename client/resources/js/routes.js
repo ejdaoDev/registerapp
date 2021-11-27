@@ -1,7 +1,6 @@
 import RedirectIfAuthenticated from "./middlewares/RedirectIfAuthenticatedMiddleware";
 import Auth from "./middlewares/AuthMiddleware";
 
-const Home = () => import("./components/Home.vue");
 const Users = () => import("./components/Users.vue");
 const UsersForm = () => import("./components/UsersForm.vue");
 const Login = () => import("./components/Login.vue");
@@ -9,12 +8,12 @@ const Register = () => import("./components/Register.vue");
 
 export const routes = [
     {
-        name: "home",
-        path: "/",
-        component: Home
+        name: "users",
+        path: "/users",
+        component: Users
     },
     {
-        name: "users",
+        name: "**",
         path: "/users",
         component: Users
     },
@@ -41,5 +40,5 @@ export const routes = [
         path: "/register",
         component: Register,
         beforeEnter: RedirectIfAuthenticated
-    }
+    },
 ];

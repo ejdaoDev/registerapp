@@ -4,11 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/xampp/htdocs/registerapp/server/routes/v1/auth.php</file>
-            <file>file:/E:/xampp/htdocs/registerapp/server/app/Http/Controllers/Controller.php</file>
-            <file>file:/E:/xampp/htdocs/registerapp/server/app/Http/Controllers/Auth/RegisterController.php</file>
             <file>file:/E:/xampp/htdocs/registerapp/server/app/Http/Repositories/Security/UserRepository.php</file>
-            <file>file:/E:/xampp/htdocs/registerapp/server/routes/v1/users.php</file>
-            <file>file:/E:/xampp/htdocs/registerapp/server/app/Http/Interactors/Security/UserInteractor.php</file>
             <file>file:/E:/xampp/htdocs/registerapp/server/app/Http/Controllers/Security/UserController.php</file>
             <file>file:/E:/xampp/htdocs/registerapp/server/storage/logs/laravel.log</file>
         </group>
