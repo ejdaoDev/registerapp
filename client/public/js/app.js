@@ -2251,6 +2251,29 @@ var config = {
 
 /***/ }),
 
+/***/ "./resources/js/middlewares/AuthMiddleware.js":
+/*!****************************************************!*\
+  !*** ./resources/js/middlewares/AuthMiddleware.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Auth)
+/* harmony export */ });
+function Auth(to, from, next) {
+  if (localStorage.getItem('auth.token') == null) {
+    next({
+      name: 'home'
+    });
+  }
+
+  next();
+}
+
+/***/ }),
+
 /***/ "./resources/js/middlewares/RedirectIfAuthenticatedMiddleware.js":
 /*!***********************************************************************!*\
   !*** ./resources/js/middlewares/RedirectIfAuthenticatedMiddleware.js ***!
@@ -2286,6 +2309,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "routes": () => (/* binding */ routes)
 /* harmony export */ });
 /* harmony import */ var _middlewares_RedirectIfAuthenticatedMiddleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./middlewares/RedirectIfAuthenticatedMiddleware */ "./resources/js/middlewares/RedirectIfAuthenticatedMiddleware.js");
+/* harmony import */ var _middlewares_AuthMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./middlewares/AuthMiddleware */ "./resources/js/middlewares/AuthMiddleware.js");
+
 
 
 var Home = function Home() {
@@ -2294,6 +2319,10 @@ var Home = function Home() {
 
 var Users = function Users() {
   return __webpack_require__.e(/*! import() */ "resources_js_components_Users_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Users.vue */ "./resources/js/components/Users.vue"));
+};
+
+var UsersForm = function UsersForm() {
+  return __webpack_require__.e(/*! import() */ "resources_js_components_UsersForm_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/UsersForm.vue */ "./resources/js/components/UsersForm.vue"));
 };
 
 var Login = function Login() {
@@ -2312,6 +2341,16 @@ var routes = [{
   name: "users",
   path: "/users",
   component: Users
+}, {
+  name: "create-user",
+  path: "/users/create",
+  component: UsersForm,
+  beforeEnter: _middlewares_AuthMiddleware__WEBPACK_IMPORTED_MODULE_1__["default"]
+}, {
+  name: "edit-user",
+  path: "/users/:id",
+  component: UsersForm,
+  beforeEnter: _middlewares_AuthMiddleware__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
   name: "login",
   path: "/login",
@@ -38624,7 +38663,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.3","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Home_vue":1,"resources_js_components_Users_vue":1,"resources_js_components_Login_vue":1,"resources_js_components_Register_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Home_vue":1,"resources_js_components_Users_vue":1,"resources_js_components_UsersForm_vue":1,"resources_js_components_Login_vue":1,"resources_js_components_Register_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

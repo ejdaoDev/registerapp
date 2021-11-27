@@ -10,7 +10,7 @@ use App\Http\Repositories\Security\UserRepository;
 class RegisterController extends Controller {
 
     public function register(Request $request) {
-        if (User::where("email", $request->email)->count()) {
+        if (User::withTrashed()->where("email", $request->email)->count()) {
             return response()->json([
                         'status' => "204",
                         'data' => ['message' => 'this email already exist']]);
@@ -21,7 +21,7 @@ class RegisterController extends Controller {
                         'data' => ['message' => "user successfully created"]]);
         }
         return response()->json([
-                    'status' => "204",
+                    'status' => "500",
                     'data' => ['message' => "the user could not be created"]]);
     }
 

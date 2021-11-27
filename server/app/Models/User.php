@@ -36,8 +36,9 @@ class User extends Authenticatable implements JWTSubject {
         'password',
         'remember_token',
         'created_at',
+        'updated_by',
         'updated_at',
-        'updated_by'
+        'deleted_at',
     ];
 
     public function role() {

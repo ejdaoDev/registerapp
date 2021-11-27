@@ -34,7 +34,7 @@ class LoginController extends Controller {
     }
 
     public function logout() {
-        \Log::debug('deslogueado correctamente');
+        //\Log::debug('deslogueado correctamente');
         auth($this->guard)->logout();
         return response()->json([
                     'status' => "200",
